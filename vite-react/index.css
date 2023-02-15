@@ -1,0 +1,54 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    font-family: Inter, sans-serif;
+    background-color: rgb(40, 44, 53);
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+    padding: 30px 25px;
+    background-color: rgb(34, 34, 42);
+    color: rgb(179, 190, 199);
+}
+.nav-left {
+    display: flex;
+    align-items: center;
+}
+.image {
+    width: 50px;
+    margin-right: 7px;
+}
+.title {
+    color: rgb(97, 217, 250);
+    font-size:xx-large;
+}
+.content {
+    padding: 55px 25px;
+    color: white;
+    background-image: url("./src/images/react_logo_notext.png");
+    background-size: 300px;
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+.content > h1 {
+    margin: 0;
+    font-size: 40px;
+    letter-spacing: -0.05em;
+}
+.content > ul {
+    margin-top: 45px;
+}
+.content > ul > li {
+    line-height: 19px;
+    padding-block: 10px;
+    
+}
+.content > ul > li::marker {
+    color: rgb(97, 217, 250);
+    font-size: 1.4em;
+}
