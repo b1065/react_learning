@@ -1,4 +1,4 @@
-Site build using this tutorial:
+Website created using this tutorial:
 
 https://scrimba.com/learn/learnreact
 
