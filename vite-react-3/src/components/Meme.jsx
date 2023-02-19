@@ -1,20 +1,35 @@
-import React, {useState} from "react"
-import memesData from "../memeData"
+import React, {useState, useEffect} from "react"
 
 export default function Meme() {
-    const [allMemeImages, setAllMemeImages] = useState(memesData)
+    const [allMemeImages, setAllMemeImages] = useState([])
 
+    useEffect(() => {
+        fetch("https://api.imgflip.com/get_memes")
+        .then(data => data.json())
+        .then(data => setAllMemeImages(data.data.memes))
+    }, [])
+    
     const [meme, setMeme] = useState({
         topText: "",
         bottomText: "",
-        randomImage: allMemeImages.data.memes[Math.floor(Math.random()*allMemeImages.data.memes.length)].url
+        randomImage: ""
     })
     
     function getNewImage(){
         setMeme(prevMeme => (
             {
                 ...prevMeme, 
-                randomImage: allMemeImages.data.memes[Math.floor(Math.random()*allMemeImages.data.memes.length)].url
+                randomImage: allMemeImages[Math.floor(Math.random()*allMemeImages.length)].url
+            }
+        ))
+    }
+
+    function handleChange(event){
+        const {name,value} = event.target
+        setMeme(prevMeme => (
+            {
+                ...prevMeme,
+                [name]: value
             }
         ))
     }
@@ -22,11 +37,32 @@ export default function Meme() {
     return(
         <main>
             <div className="form">
-                <input type="text" placeholder="Top" value={meme.bottomText}></input>
-                <input type="text" placeholder="Bottom" value={meme.bottomText}></input>
-                <button className="memeButton" onClick={getNewImage}>Get a new image 🖼</button>
+                <input 
+                    type="text" 
+                    placeholder="Top Text" 
+                    value={meme.topText}
+                    name="topText"
+                    onChange={handleChange}
+                />
+                <input 
+                    type="text" 
+                    placeholder="Bottom Text" 
+                    value={meme.bottomText}
+                    name="bottomText"
+                    onChange={handleChange}
+                />
+                <button 
+                    className="memeButton" 
+                    onClick={getNewImage}
+                >
+                    &#128079; Get a new image &#128079;
+                </button>
             </div>
-            <img className="memeImage" src={meme.randomImage}/>
+            <div className="meme">
+                <img className="memeImage" src={meme.randomImage}/>
+                <h2 className="memeText top">{meme.topText}</h2>
+                <h2 className="memeText bottom">{meme.bottomText}</h2>
+            </div>
         </main>
     )
 }
